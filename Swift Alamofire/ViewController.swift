@@ -7,17 +7,46 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        useAlamofire()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func useAlamofire(){
+        
+        //Response结果处理
+        Alamofire.request(.GET, "http://httpbin.org/get", parameters:["foo":"bar"])
+            .response{(request,response,data,error) in
+                print(request)
+                print("\n")
+                print(response)
+                print("\n")
+                print(error)
+        }
+        
+        //Response结果字符串处理
+        Alamofire.request(.GET, "http://httpbin.org/get", parameters:["foo":"bar"])
+            .response{
+                (request,response,string,error)in
+                print(string)
+        }
+        
+        //POST JSON格式数据
+        let parameters = ["foo":"bar"]
+        Alamofire.request(.POST, "http://httpbin.org/post", parameters:parameters, encoding: .JSON).response{(request,response,JSON,error) in
+                print(JSON)
+        }
     }
 
 
