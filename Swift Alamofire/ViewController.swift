@@ -39,7 +39,15 @@ class ViewController: UIViewController {
         Alamofire.request(.GET, "http://httpbin.org/get", parameters:["foo":"bar"])
             .response{
                 (request,response,string,error)in
-                print(string)
+               // print(string)
+        }
+        
+        //Response JSON
+        Alamofire.request(.GET, "http://httpbin.org/get").responseJSON{
+            response in
+            if response.result.isSuccess {
+                print(response)
+            }
         }
         
         //POST JSON格式数据
